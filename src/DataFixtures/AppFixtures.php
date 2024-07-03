@@ -36,7 +36,6 @@ class AppFixtures extends Fixture
                 'adresse' => '456 Main St',
                 'genre' => ['Female']
             ],
-            // Add more users here if needed
         ];
 
         foreach ($usersData as $userData) {

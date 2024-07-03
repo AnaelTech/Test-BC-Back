@@ -50,7 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['users:read', 'users:write'])]
     private ?string $lastname = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     #[Groups(['users:read', 'users:write'])]
     private ?\DateTimeInterface $Birthday = null;
 
@@ -184,12 +184,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    /**
+     * 
+     *
+     * @return list<string>
+     */
 
     public function getGenre(): array
     {
         return $this->genre;
     }
-
+    /**
+     * @param list<string> $genre
+     */
     public function setGenre(array $genre): static
     {
         $this->genre = $genre;
