@@ -62,6 +62,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['users:read', 'users:write'])]
     private array $genre = [];
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $picture = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $civilité = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -200,6 +206,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setGenre(array $genre): static
     {
         $this->genre = $genre;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): static
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getCivilité(): ?string
+    {
+        return $this->civilité;
+    }
+
+    public function setCivilité(?string $civilité): static
+    {
+        $this->civilité = $civilité;
 
         return $this;
     }
