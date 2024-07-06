@@ -63,9 +63,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $genre = [];
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['users:read', 'users:write'])]
     private ?string $picture = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['users:read', 'users:write'])]
     private ?string $civilité = null;
 
     public function getId(): ?int
