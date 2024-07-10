@@ -33,6 +33,9 @@ class Article
     #[Groups(['articles:read', 'articles:write'])]
     private ?Category $category = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $quantity = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +73,18 @@ class Article
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(?int $quantity): static
+    {
+        $this->quantity = $quantity;
 
         return $this;
     }
