@@ -21,7 +21,7 @@ class Prestation
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['prestations:read', 'prestations:write'])]
+    #[Groups(['prestations:read', 'prestations:write', 'articles:read', 'categories:read'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
@@ -29,11 +29,11 @@ class Prestation
     private ?string $picture = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['prestations:read', 'prestations:write'])]
+    #[Groups(['prestations:read', 'prestations:write', 'articles:read', 'categories:read'])]
     private ?string $description = null;
 
     #[ORM\Column]
-    #[Groups(['prestations:read', 'prestations:write'])]
+    #[Groups(['prestations:read', 'prestations:write', 'articles:read', 'categories:read'])]
     private ?int $price = null;
 
     #[ORM\ManyToOne(inversedBy: 'Prestation')]
