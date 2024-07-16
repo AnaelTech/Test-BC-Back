@@ -46,6 +46,10 @@ class Article
     #[Groups(['articles:read', 'articles:write'])]
     private Collection $orders;
 
+    #[ORM\Column(nullable: true)]
+    #[Groups(['articles:read', 'articles:write'])]
+    private ?int $price = null;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -127,6 +131,18 @@ class Article
         if ($this->orders->removeElement($order)) {
             $order->removeArticleCommande($this);
         }
+
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?int $price): static
+    {
+        $this->price = $price;
 
         return $this;
     }

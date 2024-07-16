@@ -167,6 +167,7 @@ class AppFixtures extends Fixture
                 $article = new Article();
                 $article->setName('Article ' . $i . ' de ' . $category->getName());
                 $article->setDescription('Description de l\'article ' . $i);
+                $article->setPrice(rand(5, 60));
                 $article->setCategory($category);
 
                 $manager->persist($article);
