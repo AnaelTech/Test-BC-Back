@@ -33,6 +33,7 @@ class Article
     #[ORM\ManyToOne(targetEntity: Category::class)]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['articles:read', 'articles:write'])]
+
     private ?Category $category = null;
 
     #[ORM\Column(nullable: true)]
