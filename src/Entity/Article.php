@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[ApiResource(
-    normalizationContext: ['groups' => ['articles:read']],
+    normalizationContext: ['groups' => ['articles:read', 'orders:read']],
     denormalizationContext: ['groups' => ['articles:write']],
 )]
 class Article
@@ -23,20 +23,21 @@ class Article
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['articles:read', 'articles:write'])]
+    #[Groups(['articles:read', 'articles:write', 'orders:read'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['articles:read', 'articles:write'])]
+    #[Groups(['articles:read', 'articles:write', 'orders:read'])]
     private ?string $description = null;
 
     #[ORM\ManyToOne(targetEntity: Category::class)]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['articles:read', 'articles:write'])]
+    #[Groups(['articles:read', 'articles:write', 'orders:read'])]
 
     private ?Category $category = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['articles:read', 'articles:write', 'orders:read'])]
     private ?int $quantity = null;
 
     /**

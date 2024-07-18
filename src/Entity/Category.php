@@ -23,7 +23,7 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['categories:read', 'categories:write', 'articles:read'])]
+    #[Groups(['categories:read', 'categories:write', 'articles:read', 'orders:read'])]
     private ?string $name = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -38,7 +38,7 @@ class Category
      * @var Collection<int, Prestation>
      */
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Prestation::class, cascade: ['persist', 'remove'])]
-    #[Groups(['categories:read', 'categories:write', 'articles:read'])]
+    #[Groups(['categories:read', 'categories:write', 'articles:read', 'orders:read'])]
     private Collection $Prestation;
 
 

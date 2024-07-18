@@ -16,6 +16,12 @@ services:
           event: "lexik_jwt_authentication.on_jwt_created",
           method: "onJWTCreated",
         }
+  acme_api.event.hash_user_password_listener:
+    class: App\EventListener\HashUserPasswordListener
+    arguments:
+      $hasher: "@security.password_hasher"
+    tags:
+      - { name: "doctrine.event_listener", event: "prePersist" }
 
   _defaults:
     autowire: true # Automatically injects dependencies in your services.
