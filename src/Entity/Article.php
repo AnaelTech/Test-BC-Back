@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[ApiResource(
-    normalizationContext: ['groups' => ['articles:read', 'orders:read']],
+    normalizationContext: ['groups' => ['articles:read']],
     denormalizationContext: ['groups' => ['articles:write']],
 )]
 class Article

@@ -43,6 +43,10 @@ class Order
     #[Groups(['orders:read', 'orders:write'])]
     private Collection $article_commande;
 
+    #[ORM\ManyToOne(inversedBy: 'employee_orders')]
+    #[Groups(['orders:read', 'orders:write'])]
+    private ?User $employee = null;
+
     public function __construct()
     {
         $this->article_commande = new ArrayCollection();
@@ -109,6 +113,18 @@ class Order
     public function removeArticleCommande(Article $articleCommande): static
     {
         $this->article_commande->removeElement($articleCommande);
+
+        return $this;
+    }
+
+    public function getEmployee(): ?User
+    {
+        return $this->employee;
+    }
+
+    public function setEmployee(?User $employee): static
+    {
+        $this->employee = $employee;
 
         return $this;
     }

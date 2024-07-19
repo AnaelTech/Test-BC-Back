@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[ApiResource(
-    normalizationContext: ['groups' => ['users:read', 'orders:read']],
+    normalizationContext: ['groups' => ['users:read']],
     denormalizationContext: ['groups' => ['users:write']],
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -28,7 +28,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    #[Groups(['users:read', 'users:write', 'orders;read'])]
+    #[Groups(['users:read', 'users:write', 'orders:read'])]
     #[Assert\Email(message: 'L\'adresse email "{{ value }}" n\'est pas valide.')]
     private ?string $email = null;
 
@@ -79,11 +79,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var Collection<int, Order>
      */
     #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'client')]
+
     private Collection $orders;
+
+    /**
+     * @var Collection<int, Order>
+     */
+    #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'employee')]
+
+    private Collection $employee_orders;
 
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->employee_orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -276,6 +285,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($order->getClient() === $this) {
                 $order->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getEmployeeOrders(): Collection
+    {
+        return $this->employee_orders;
+    }
+
+    public function addEmployeeOrder(Order $employeeOrder): static
+    {
+        if (!$this->employee_orders->contains($employeeOrder)) {
+            $this->employee_orders->add($employeeOrder);
+            $employeeOrder->setEmployee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmployeeOrder(Order $employeeOrder): static
+    {
+        if ($this->employee_orders->removeElement($employeeOrder)) {
+            // set the owning side to null (unless already changed)
+            if ($employeeOrder->getEmployee() === $this) {
+                $employeeOrder->setEmployee(null);
             }
         }
 
