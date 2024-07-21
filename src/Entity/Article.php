@@ -51,9 +51,16 @@ class Article
     #[Groups(['articles:read', 'articles:write'])]
     private ?int $price = null;
 
+    /**
+     * @var Collection<int, Prestation>
+     */
+    #[ORM\ManyToMany(targetEntity: Prestation::class, inversedBy: 'articles')]
+    private Collection $prestations;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->prestations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,6 +151,30 @@ class Article
     public function setPrice(?int $price): static
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Prestation>
+     */
+    public function getPrestations(): Collection
+    {
+        return $this->prestations;
+    }
+
+    public function addPrestation(Prestation $prestation): static
+    {
+        if (!$this->prestations->contains($prestation)) {
+            $this->prestations->add($prestation);
+        }
+
+        return $this;
+    }
+
+    public function removePrestation(Prestation $prestation): static
+    {
+        $this->prestations->removeElement($prestation);
 
         return $this;
     }
