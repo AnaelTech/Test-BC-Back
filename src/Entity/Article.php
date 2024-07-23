@@ -23,7 +23,7 @@ class Article
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['articles:read', 'articles:write', 'orders:read'])]
+    #[Groups(['articles:read', 'articles:write', 'orders:read', 'users:read'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
@@ -55,6 +55,7 @@ class Article
      * @var Collection<int, Prestation>
      */
     #[ORM\ManyToMany(targetEntity: Prestation::class, inversedBy: 'articles')]
+    #[Groups(['articles:read', 'articles:write'])]
     private Collection $prestations;
 
     public function __construct()

@@ -21,15 +21,15 @@ class Order
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['orders:read'])]
+    #[Groups(['orders:read', 'users:read'])]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    #[Groups(['orders:read', 'orders:write'])]
+    #[Groups(['orders:read', 'orders:write', 'users:read'])]
     private ?array $statut = null;
 
     #[ORM\Column]
-    #[Groups(['orders:read', 'orders:write'])]
+    #[Groups(['orders:read', 'orders:write', 'users:read'])]
     private ?int $total = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
@@ -40,7 +40,7 @@ class Order
      * @var Collection<int, Article>
      */
     #[ORM\ManyToMany(targetEntity: Article::class, inversedBy: 'orders')]
-    #[Groups(['orders:read', 'orders:write'])]
+    #[Groups(['orders:read', 'orders:write', 'users:read'])]
     private Collection $article_commande;
 
     #[ORM\ManyToOne(inversedBy: 'employee_orders')]
