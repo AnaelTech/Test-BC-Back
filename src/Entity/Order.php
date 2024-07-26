@@ -40,7 +40,7 @@ class Order
      * @var Collection<int, Article>
      */
     #[ORM\ManyToMany(targetEntity: Article::class, inversedBy: 'orders')]
-    #[Groups(['users:read'])]
+    #[Groups(['users:read', 'orders:read', 'orders:write'])]
     private Collection $article_commande;
 
     #[ORM\ManyToOne(inversedBy: 'employee_orders')]

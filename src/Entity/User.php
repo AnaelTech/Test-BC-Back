@@ -79,7 +79,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var Collection<int, Order>
      */
     #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'client')]
-    #[Groups(['users:read', 'users:write', 'orders:read'])]
+    #[Groups(['users:read', 'users:write'])]
 
     private Collection $orders;
 
