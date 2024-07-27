@@ -12,7 +12,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
-    public function __construct(private UserPasswordHasherInterface $userPasswordHasherInterface)
+    public function __construct(private UserPasswordHasherInterface $hasher)
     {
     }
 
@@ -41,14 +41,24 @@ class AppFixtures extends Fixture
                 'genre' => ['Female'],
                 'picture' => 'https://picsum.photos/200/300'
             ],
+            [
+                'email' => 'adminsuper@example.com',
+                'roles' => ['ROLE_SUPER_ADMIN'],
+                'password' => 'adminpasswordsuper',
+                'name' => 'Anael',
+                'lastname' => 'Payet',
+                'birthday' => new \DateTime('1999-05-25'),
+                'adresse' => '123 Main St Lyon',
+                'genre' => ['Male'],
+                'picture' => 'https://picsum.photos/200/300'
+            ],
         ];
 
         foreach ($usersData as $userData) {
             $user = new User();
             $user->setEmail($userData['email']);
             $user->setRoles($userData['roles']);
-            $hashedPassword = $this->userPasswordHasherInterface->hashPassword($user, $userData['password']);
-            $user->setPassword($hashedPassword);
+            $user->setPassword($userData['password']);
             $user->setName($userData['name']);
             $user->setLastname($userData['lastname']);
             $user->setBirthday($userData['birthday']);

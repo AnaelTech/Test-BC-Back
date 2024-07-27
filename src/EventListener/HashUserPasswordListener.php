@@ -24,6 +24,8 @@ class HashUserPasswordListener
             return;
         }
 
-        $entity->setPassword($this->hasher->hashPassword($entity, $entity->getPassword()));
+        if (!preg_match('/^\$2y\$/', $entity->getPassword())) {
+            $entity->setPassword($this->hasher->hashPassword($entity, $entity->getPassword()));
+        }
     }
 }
