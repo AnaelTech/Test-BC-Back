@@ -13,8 +13,7 @@ class HashUserPasswordListener
 {
     public function __construct(
         private UserPasswordHasherInterface $hasher
-    ) {
-    }
+    ) {}
 
     public function prePersist(PrePersistEventArgs $event): void
     {
